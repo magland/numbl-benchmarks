@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1776983018779,
+  "lastUpdate": 1776983652747,
   "repoUrl": "https://github.com/flatironinstitute/numbl",
   "entries": {
     "numbl benchmarks (Linux)": [
@@ -2556,6 +2556,534 @@ window.BENCHMARK_DATA = {
             "value": 0.26505,
             "unit": "s",
             "extra": "median of 3/3 runs: [0.2734, 0.2651, 0.2585]\nOS: linux 6.17.0-1010-azure (x64)\nCPU: AMD EPYC 7763 64-Core Processor (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260413.86.1"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "dan.fortunato@gmail.com",
+            "name": "Dan Fortunato",
+            "username": "danfortunato"
+          },
+          "committer": {
+            "email": "dan.fortunato@gmail.com",
+            "name": "Dan Fortunato",
+            "username": "danfortunato"
+          },
+          "distinct": true,
+          "id": "a82709ac5a5032ee823b1dd33ed5a0cdb5d2a8d3",
+          "message": "addon: fix macOS load segfault after Accelerate switch\n\nopenblas_set_num_threads is unresolved when linking against Accelerate\n(-framework Accelerate doesn't provide it), so Init() crashed at\nmodule load time. Guard the declaration and call with __APPLE__ and\nset VECLIB_MAXIMUM_THREADS=1 on macOS to match the single-thread BLAS\nintent.",
+          "timestamp": "2026-04-23T18:27:20-04:00",
+          "tree_id": "2306285579f8b1b037bd29faf87d1b23bb41445b",
+          "url": "https://github.com/flatironinstitute/numbl/commit/a82709ac5a5032ee823b1dd33ed5a0cdb5d2a8d3"
+        },
+        "date": 1776983652567,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "scalar_bench / elapsed / opt-1",
+            "value": 0.4898,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [0.4896, 0.4898, 0.4904]\nOS: linux 6.17.0-1010-azure (x64)\nCPU: Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260413.86.1"
+          },
+          {
+            "name": "scalar_bench / elapsed / opt-e1",
+            "value": 0.3168,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [0.3164, 0.3260, 0.3168]\nOS: linux 6.17.0-1010-azure (x64)\nCPU: Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260413.86.1"
+          },
+          {
+            "name": "scalar_bench / elapsed / opt-e1-par",
+            "value": 0.3163,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [0.3172, 0.3163, 0.3162]\nOS: linux 6.17.0-1010-azure (x64)\nCPU: Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260413.86.1"
+          },
+          {
+            "name": "complex_scalar_bench / elapsed / opt-1",
+            "value": 0.6057,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [0.6207, 0.6049, 0.6057]\nOS: linux 6.17.0-1010-azure (x64)\nCPU: Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260413.86.1"
+          },
+          {
+            "name": "complex_scalar_bench / elapsed / opt-e1",
+            "value": 0.0642,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [0.0641, 0.0642, 0.0642]\nOS: linux 6.17.0-1010-azure (x64)\nCPU: Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260413.86.1"
+          },
+          {
+            "name": "complex_scalar_bench / elapsed / opt-e1-par",
+            "value": 0.0642,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [0.0641, 0.0642, 0.0643]\nOS: linux 6.17.0-1010-azure (x64)\nCPU: Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260413.86.1"
+          },
+          {
+            "name": "tensor_ops_bench / Binary / opt-1",
+            "value": 1.018,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [1.0180, 1.0470, 0.9920]\nOS: linux 6.17.0-1010-azure (x64)\nCPU: Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260413.86.1"
+          },
+          {
+            "name": "tensor_ops_bench / Chain / opt-1",
+            "value": 1.193,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [1.1820, 1.1930, 1.1950]\nOS: linux 6.17.0-1010-azure (x64)\nCPU: Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260413.86.1"
+          },
+          {
+            "name": "tensor_ops_bench / CmpRed / opt-1",
+            "value": 0.54,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [0.5400, 0.5570, 0.5400]\nOS: linux 6.17.0-1010-azure (x64)\nCPU: Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260413.86.1"
+          },
+          {
+            "name": "tensor_ops_bench / Reduce / opt-1",
+            "value": 0.391,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [0.3930, 0.3890, 0.3910]\nOS: linux 6.17.0-1010-azure (x64)\nCPU: Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260413.86.1"
+          },
+          {
+            "name": "tensor_ops_bench / Unary / opt-1",
+            "value": 2.208,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [2.2080, 2.2630, 2.1960]\nOS: linux 6.17.0-1010-azure (x64)\nCPU: Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260413.86.1"
+          },
+          {
+            "name": "tensor_ops_bench / total / opt-1",
+            "value": 5.341,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [5.3410, 5.4500, 5.3140]\nOS: linux 6.17.0-1010-azure (x64)\nCPU: Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260413.86.1"
+          },
+          {
+            "name": "tensor_ops_bench / Binary / opt-e1",
+            "value": 0.151,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [0.1490, 0.1510, 0.1530]\nOS: linux 6.17.0-1010-azure (x64)\nCPU: Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260413.86.1"
+          },
+          {
+            "name": "tensor_ops_bench / Chain / opt-e1",
+            "value": 0.293,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [0.2930, 0.2940, 0.2920]\nOS: linux 6.17.0-1010-azure (x64)\nCPU: Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260413.86.1"
+          },
+          {
+            "name": "tensor_ops_bench / CmpRed / opt-e1",
+            "value": 0.333,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [0.3230, 0.3330, 0.3400]\nOS: linux 6.17.0-1010-azure (x64)\nCPU: Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260413.86.1"
+          },
+          {
+            "name": "tensor_ops_bench / Reduce / opt-e1",
+            "value": 0.396,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [0.3920, 0.3960, 0.3970]\nOS: linux 6.17.0-1010-azure (x64)\nCPU: Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260413.86.1"
+          },
+          {
+            "name": "tensor_ops_bench / Unary / opt-e1",
+            "value": 1.265,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [1.2640, 1.2650, 1.2740]\nOS: linux 6.17.0-1010-azure (x64)\nCPU: Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260413.86.1"
+          },
+          {
+            "name": "tensor_ops_bench / total / opt-e1",
+            "value": 2.438,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [2.4210, 2.4380, 2.4560]\nOS: linux 6.17.0-1010-azure (x64)\nCPU: Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260413.86.1"
+          },
+          {
+            "name": "tensor_ops_bench / Binary / opt-e1-par",
+            "value": 0.152,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [0.1500, 0.1590, 0.1520]\nOS: linux 6.17.0-1010-azure (x64)\nCPU: Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260413.86.1"
+          },
+          {
+            "name": "tensor_ops_bench / Chain / opt-e1-par",
+            "value": 0.293,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [0.2930, 0.2920, 0.2960]\nOS: linux 6.17.0-1010-azure (x64)\nCPU: Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260413.86.1"
+          },
+          {
+            "name": "tensor_ops_bench / CmpRed / opt-e1-par",
+            "value": 0.332,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [0.3270, 0.3320, 0.3390]\nOS: linux 6.17.0-1010-azure (x64)\nCPU: Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260413.86.1"
+          },
+          {
+            "name": "tensor_ops_bench / Reduce / opt-e1-par",
+            "value": 0.397,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [0.3950, 0.3970, 0.4000]\nOS: linux 6.17.0-1010-azure (x64)\nCPU: Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260413.86.1"
+          },
+          {
+            "name": "tensor_ops_bench / Unary / opt-e1-par",
+            "value": 0.396,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [0.3960, 0.3950, 0.3970]\nOS: linux 6.17.0-1010-azure (x64)\nCPU: Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260413.86.1"
+          },
+          {
+            "name": "tensor_ops_bench / total / opt-e1-par",
+            "value": 1.575,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [1.5620, 1.5750, 1.5840]\nOS: linux 6.17.0-1010-azure (x64)\nCPU: Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260413.86.1"
+          },
+          {
+            "name": "tensor_ops_bench2 / AccRed / opt-1",
+            "value": 0.823,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [0.8230, 0.8130, 0.8270]\nOS: linux 6.17.0-1010-azure (x64)\nCPU: Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260413.86.1"
+          },
+          {
+            "name": "tensor_ops_bench2 / BinOps / opt-1",
+            "value": 7.943,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [7.9430, 7.9840, 7.8730]\nOS: linux 6.17.0-1010-azure (x64)\nCPU: Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260413.86.1"
+          },
+          {
+            "name": "tensor_ops_bench2 / Clamp / opt-1",
+            "value": 8.613,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [8.5870, 8.7240, 8.6130]\nOS: linux 6.17.0-1010-azure (x64)\nCPU: Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260413.86.1"
+          },
+          {
+            "name": "tensor_ops_bench2 / Gauss / opt-1",
+            "value": 0.7,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [0.7060, 0.6960, 0.7000]\nOS: linux 6.17.0-1010-azure (x64)\nCPU: Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260413.86.1"
+          },
+          {
+            "name": "tensor_ops_bench2 / InlRed / opt-1",
+            "value": 0.42,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [0.4240, 0.4070, 0.4200]\nOS: linux 6.17.0-1010-azure (x64)\nCPU: Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260413.86.1"
+          },
+          {
+            "name": "tensor_ops_bench2 / Nested / opt-1",
+            "value": 1.554,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [1.5610, 1.5540, 1.5520]\nOS: linux 6.17.0-1010-azure (x64)\nCPU: Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260413.86.1"
+          },
+          {
+            "name": "tensor_ops_bench2 / total / opt-1",
+            "value": 20.045,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [20.0450, 20.1780, 19.9850]\nOS: linux 6.17.0-1010-azure (x64)\nCPU: Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260413.86.1"
+          },
+          {
+            "name": "tensor_ops_bench2 / AccRed / opt-e1",
+            "value": 0.293,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [0.2940, 0.2930, 0.2930]\nOS: linux 6.17.0-1010-azure (x64)\nCPU: Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260413.86.1"
+          },
+          {
+            "name": "tensor_ops_bench2 / BinOps / opt-e1",
+            "value": 0.364,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [0.3650, 0.3640, 0.3640]\nOS: linux 6.17.0-1010-azure (x64)\nCPU: Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260413.86.1"
+          },
+          {
+            "name": "tensor_ops_bench2 / Clamp / opt-e1",
+            "value": 0.242,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [0.2420, 0.2290, 0.2550]\nOS: linux 6.17.0-1010-azure (x64)\nCPU: Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260413.86.1"
+          },
+          {
+            "name": "tensor_ops_bench2 / Gauss / opt-e1",
+            "value": 0.291,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [0.2910, 0.2930, 0.2830]\nOS: linux 6.17.0-1010-azure (x64)\nCPU: Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260413.86.1"
+          },
+          {
+            "name": "tensor_ops_bench2 / InlRed / opt-e1",
+            "value": 0.064,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [0.0680, 0.0640, 0.0600]\nOS: linux 6.17.0-1010-azure (x64)\nCPU: Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260413.86.1"
+          },
+          {
+            "name": "tensor_ops_bench2 / Nested / opt-e1",
+            "value": 0.754,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [0.7530, 0.7650, 0.7540]\nOS: linux 6.17.0-1010-azure (x64)\nCPU: Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260413.86.1"
+          },
+          {
+            "name": "tensor_ops_bench2 / total / opt-e1",
+            "value": 2.009,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [2.0120, 2.0080, 2.0090]\nOS: linux 6.17.0-1010-azure (x64)\nCPU: Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260413.86.1"
+          },
+          {
+            "name": "tensor_ops_bench2 / AccRed / opt-e1-par",
+            "value": 0.293,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [0.2940, 0.2930, 0.2910]\nOS: linux 6.17.0-1010-azure (x64)\nCPU: Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260413.86.1"
+          },
+          {
+            "name": "tensor_ops_bench2 / BinOps / opt-e1-par",
+            "value": 0.182,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [0.1840, 0.1820, 0.1820]\nOS: linux 6.17.0-1010-azure (x64)\nCPU: Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260413.86.1"
+          },
+          {
+            "name": "tensor_ops_bench2 / Clamp / opt-e1-par",
+            "value": 0.146,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [0.1470, 0.1460, 0.1340]\nOS: linux 6.17.0-1010-azure (x64)\nCPU: Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260413.86.1"
+          },
+          {
+            "name": "tensor_ops_bench2 / Gauss / opt-e1-par",
+            "value": 0.105,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [0.1040, 0.1100, 0.1050]\nOS: linux 6.17.0-1010-azure (x64)\nCPU: Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260413.86.1"
+          },
+          {
+            "name": "tensor_ops_bench2 / InlRed / opt-e1-par",
+            "value": 0.067,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [0.0680, 0.0670, 0.0580]\nOS: linux 6.17.0-1010-azure (x64)\nCPU: Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260413.86.1"
+          },
+          {
+            "name": "tensor_ops_bench2 / Nested / opt-e1-par",
+            "value": 0.307,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [0.3220, 0.3070, 0.3060]\nOS: linux 6.17.0-1010-azure (x64)\nCPU: Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260413.86.1"
+          },
+          {
+            "name": "tensor_ops_bench2 / total / opt-e1-par",
+            "value": 1.104,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [1.1190, 1.1040, 1.0760]\nOS: linux 6.17.0-1010-azure (x64)\nCPU: Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260413.86.1"
+          },
+          {
+            "name": "complex_tensor_bench / k1_mandelbrot / opt-1",
+            "value": 0.13,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [0.1300, 0.1300, 0.1270]\nOS: linux 6.17.0-1010-azure (x64)\nCPU: Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260413.86.1"
+          },
+          {
+            "name": "complex_tensor_bench / k2_tensor_chain / opt-1",
+            "value": 0.303,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [0.3030, 0.3070, 0.3000]\nOS: linux 6.17.0-1010-azure (x64)\nCPU: Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260413.86.1"
+          },
+          {
+            "name": "complex_tensor_bench / k3_conj_chain / opt-1",
+            "value": 0.567,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [0.5730, 0.5670, 0.5560]\nOS: linux 6.17.0-1010-azure (x64)\nCPU: Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260413.86.1"
+          },
+          {
+            "name": "complex_tensor_bench / k4_widening / opt-1",
+            "value": 0.128,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [0.1280, 0.1290, 0.1280]\nOS: linux 6.17.0-1010-azure (x64)\nCPU: Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260413.86.1"
+          },
+          {
+            "name": "complex_tensor_bench / k5_divide / opt-1",
+            "value": 0.089,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [0.0870, 0.0890, 0.0950]\nOS: linux 6.17.0-1010-azure (x64)\nCPU: Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260413.86.1"
+          },
+          {
+            "name": "complex_tensor_bench / k6_abs_reduce / opt-1",
+            "value": 0.116,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [0.1150, 0.1160, 0.1160]\nOS: linux 6.17.0-1010-azure (x64)\nCPU: Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260413.86.1"
+          },
+          {
+            "name": "complex_tensor_bench / total / opt-1",
+            "value": 1.336,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [1.3360, 1.3370, 1.3230]\nOS: linux 6.17.0-1010-azure (x64)\nCPU: Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260413.86.1"
+          },
+          {
+            "name": "complex_tensor_bench / k1_mandelbrot / opt-e1",
+            "value": 0.065,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [0.0650, 0.0650, 0.0770]\nOS: linux 6.17.0-1010-azure (x64)\nCPU: Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260413.86.1"
+          },
+          {
+            "name": "complex_tensor_bench / k2_tensor_chain / opt-e1",
+            "value": 0.099,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [0.0990, 0.0970, 0.1170]\nOS: linux 6.17.0-1010-azure (x64)\nCPU: Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260413.86.1"
+          },
+          {
+            "name": "complex_tensor_bench / k3_conj_chain / opt-e1",
+            "value": 0.074,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [0.0740, 0.0740, 0.0900]\nOS: linux 6.17.0-1010-azure (x64)\nCPU: Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260413.86.1"
+          },
+          {
+            "name": "complex_tensor_bench / k4_widening / opt-e1",
+            "value": 0.064,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [0.0640, 0.0640, 0.0760]\nOS: linux 6.17.0-1010-azure (x64)\nCPU: Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260413.86.1"
+          },
+          {
+            "name": "complex_tensor_bench / k5_divide / opt-e1",
+            "value": 0.089,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [0.0890, 0.0880, 0.1110]\nOS: linux 6.17.0-1010-azure (x64)\nCPU: Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260413.86.1"
+          },
+          {
+            "name": "complex_tensor_bench / k6_abs_reduce / opt-e1",
+            "value": 0.118,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [0.1220, 0.1140, 0.1180]\nOS: linux 6.17.0-1010-azure (x64)\nCPU: Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260413.86.1"
+          },
+          {
+            "name": "complex_tensor_bench / total / opt-e1",
+            "value": 0.512,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [0.5120, 0.5010, 0.5890]\nOS: linux 6.17.0-1010-azure (x64)\nCPU: Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260413.86.1"
+          },
+          {
+            "name": "complex_tensor_bench / k1_mandelbrot / opt-e1-par",
+            "value": 0.068,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [0.0670, 0.0680, 0.0700]\nOS: linux 6.17.0-1010-azure (x64)\nCPU: Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260413.86.1"
+          },
+          {
+            "name": "complex_tensor_bench / k2_tensor_chain / opt-e1-par",
+            "value": 0.114,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [0.1140, 0.1250, 0.1130]\nOS: linux 6.17.0-1010-azure (x64)\nCPU: Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260413.86.1"
+          },
+          {
+            "name": "complex_tensor_bench / k3_conj_chain / opt-e1-par",
+            "value": 0.081,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [0.0750, 0.0810, 0.0810]\nOS: linux 6.17.0-1010-azure (x64)\nCPU: Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260413.86.1"
+          },
+          {
+            "name": "complex_tensor_bench / k4_widening / opt-e1-par",
+            "value": 0.068,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [0.0640, 0.0680, 0.0690]\nOS: linux 6.17.0-1010-azure (x64)\nCPU: Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260413.86.1"
+          },
+          {
+            "name": "complex_tensor_bench / k5_divide / opt-e1-par",
+            "value": 0.096,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [0.0880, 0.0960, 0.1020]\nOS: linux 6.17.0-1010-azure (x64)\nCPU: Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260413.86.1"
+          },
+          {
+            "name": "complex_tensor_bench / k6_abs_reduce / opt-e1-par",
+            "value": 0.115,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [0.1130, 0.1150, 0.1160]\nOS: linux 6.17.0-1010-azure (x64)\nCPU: Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260413.86.1"
+          },
+          {
+            "name": "complex_tensor_bench / total / opt-e1-par",
+            "value": 0.55,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [0.5220, 0.5530, 0.5500]\nOS: linux 6.17.0-1010-azure (x64)\nCPU: Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260413.86.1"
+          },
+          {
+            "name": "chunkie_helmholtz_starfish / build_matrix / opt-1",
+            "value": 4.253506,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [4.2535, 4.2720, 4.2532]\nOS: linux 6.17.0-1010-azure (x64)\nCPU: Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260413.86.1"
+          },
+          {
+            "name": "chunkie_helmholtz_starfish / discretize / opt-1",
+            "value": 0.624804,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [0.6193, 0.6535, 0.6248]\nOS: linux 6.17.0-1010-azure (x64)\nCPU: Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260413.86.1"
+          },
+          {
+            "name": "chunkie_helmholtz_starfish / eval / opt-1",
+            "value": 3.861961,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [3.8620, 3.8885, 3.8556]\nOS: linux 6.17.0-1010-azure (x64)\nCPU: Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260413.86.1"
+          },
+          {
+            "name": "chunkie_helmholtz_starfish / execution / opt-1",
+            "value": 10.839254,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [10.8393, 10.8687, 10.8097]\nOS: linux 6.17.0-1010-azure (x64)\nCPU: Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260413.86.1"
+          },
+          {
+            "name": "chunkie_helmholtz_starfish / interior / opt-1",
+            "value": 1.197189,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [1.2064, 1.1823, 1.1972]\nOS: linux 6.17.0-1010-azure (x64)\nCPU: Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260413.86.1"
+          },
+          {
+            "name": "chunkie_helmholtz_starfish / solve / opt-1",
+            "value": 0.537039,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [0.5377, 0.5248, 0.5370]\nOS: linux 6.17.0-1010-azure (x64)\nCPU: Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260413.86.1"
+          },
+          {
+            "name": "chunkie_helmholtz_starfish / build_matrix / opt-e1",
+            "value": 4.2559,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [4.2710, 4.1630, 4.2559]\nOS: linux 6.17.0-1010-azure (x64)\nCPU: Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260413.86.1"
+          },
+          {
+            "name": "chunkie_helmholtz_starfish / discretize / opt-e1",
+            "value": 0.638317,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [0.6383, 0.6334, 0.6492]\nOS: linux 6.17.0-1010-azure (x64)\nCPU: Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260413.86.1"
+          },
+          {
+            "name": "chunkie_helmholtz_starfish / eval / opt-e1",
+            "value": 3.825364,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [3.8390, 3.7292, 3.8254]\nOS: linux 6.17.0-1010-azure (x64)\nCPU: Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260413.86.1"
+          },
+          {
+            "name": "chunkie_helmholtz_starfish / execution / opt-e1",
+            "value": 10.719503,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [10.7974, 10.4823, 10.7195]\nOS: linux 6.17.0-1010-azure (x64)\nCPU: Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260413.86.1"
+          },
+          {
+            "name": "chunkie_helmholtz_starfish / interior / opt-e1",
+            "value": 1.08771,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [1.1598, 1.0624, 1.0877]\nOS: linux 6.17.0-1010-azure (x64)\nCPU: Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260413.86.1"
+          },
+          {
+            "name": "chunkie_helmholtz_starfish / solve / opt-e1",
+            "value": 0.521046,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [0.5210, 0.5185, 0.5370]\nOS: linux 6.17.0-1010-azure (x64)\nCPU: Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260413.86.1"
+          },
+          {
+            "name": "chunkie_helmholtz_starfish / build_matrix / opt-e1-par",
+            "value": 4.256869,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [4.2569, 4.3427, 4.2308]\nOS: linux 6.17.0-1010-azure (x64)\nCPU: Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260413.86.1"
+          },
+          {
+            "name": "chunkie_helmholtz_starfish / discretize / opt-e1-par",
+            "value": 0.633628,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [0.6233, 0.6336, 0.6620]\nOS: linux 6.17.0-1010-azure (x64)\nCPU: Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260413.86.1"
+          },
+          {
+            "name": "chunkie_helmholtz_starfish / eval / opt-e1-par",
+            "value": 3.880464,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [3.8805, 3.9725, 3.7388]\nOS: linux 6.17.0-1010-azure (x64)\nCPU: Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260413.86.1"
+          },
+          {
+            "name": "chunkie_helmholtz_starfish / execution / opt-e1-par",
+            "value": 10.857556,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [10.8576, 11.0780, 10.6062]\nOS: linux 6.17.0-1010-azure (x64)\nCPU: Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260413.86.1"
+          },
+          {
+            "name": "chunkie_helmholtz_starfish / interior / opt-e1-par",
+            "value": 1.198586,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [1.1986, 1.2246, 1.0821]\nOS: linux 6.17.0-1010-azure (x64)\nCPU: Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260413.86.1"
+          },
+          {
+            "name": "chunkie_helmholtz_starfish / solve / opt-e1-par",
+            "value": 0.536221,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [0.5362, 0.5470, 0.5339]\nOS: linux 6.17.0-1010-azure (x64)\nCPU: Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260413.86.1"
           }
         ]
       }
