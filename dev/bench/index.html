@@ -583,6 +583,7 @@
           },
           y: {
             type: isLog ? 'logarithmic' : 'linear',
+            min: isLog ? undefined : 0,
             grid: { color: 'rgba(0,0,0,0.04)', drawBorder: false },
             ticks: {
               font: { size: 10 },
