@@ -342,8 +342,8 @@
     <div class="tool-group">
       <span class="label">view:</span>
       <div class="seg" id="view-seg">
-        <button data-view="log" class="active">time (log)</button>
-        <button data-view="linear">time (linear)</button>
+        <button data-view="log">time (log)</button>
+        <button data-view="linear" class="active">time (linear)</button>
         <button data-view="speedup">speedup vs opt-1</button>
       </div>
     </div>
@@ -398,7 +398,7 @@
     // ---------- state ----------
     const state = {
       platform: null,                       // entry key from BENCHMARK_DATA.entries
-      view: 'log',                          // 'log' | 'linear' | 'speedup'
+      view: 'linear',                       // 'log' | 'linear' | 'speedup'
       enabledOpts: new Set(OPT_ORDER),
       search: '',
       totalsOnly: false,
