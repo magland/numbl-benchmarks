@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1777403650978,
+  "lastUpdate": 1777404795675,
   "repoUrl": "https://github.com/flatironinstitute/numbl",
   "entries": {
     "numbl benchmarks (Linux)": [
@@ -18048,6 +18048,198 @@ window.BENCHMARK_DATA = {
             "value": 0.252534,
             "unit": "s",
             "extra": "median of 3/3 runs: [0.2525, 0.2676, 0.2500]\nOS: linux 6.17.0-1011-azure (x64)\nCPU: AMD EPYC 9V74 80-Core Processor (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260426.100.1"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "jmagland@flatironinstitute.org",
+            "name": "Jeremy Magland",
+            "username": "magland"
+          },
+          "committer": {
+            "email": "jmagland@flatironinstitute.org",
+            "name": "Jeremy Magland",
+            "username": "magland"
+          },
+          "distinct": true,
+          "id": "c4f453ac1ba47e8861eb1f7e640b28ecab697e4b",
+          "message": "audit cleanup: drop dead surface, reorganize jit/ into jsJit/lower\n\nStep A — definitely-dead deletions:\n- interpreterExecutor + executors/interpreter/ dir + registerInterpreterPlugin.\n  The dispatcher's hardcoded `interp.execStmt` fallback covers the\n  AST-only path; the registered version was test/diagnostic-only.\n- RawStmt kind in LoweredStmt union. tryLower now returns\n  `LoweredStmt | null`; the dispatcher short-circuits to its\n  hardcoded interpreter path when null. Stmts with no specialized\n  shape skip the proposal loop entirely.\n- Proposal.requireNoBailInChildren — no executor sets it now (the\n  e1/e2 executors that did are gone). e3 sub-dispatch can opt into a\n  no-bail child ctx via the explicit `ctx.childContext(true)` call\n  rather than declaring a flag at propose time.\n- signal field on RunResult's stmt-success variant — only the\n  hardcoded interpreter fallback produces signals; registered\n  executors don't.\n- Defensive `{ result } / { consumed }` branches in runStmt/runCall\n  Candidate. Replaced with `throw` since the type system forbids the\n  cases.\n- Stale executor-registry.test.ts (predicated on the now-removed\n  RawStmt kind; integration suite + chunkie benchmark cover the\n  dispatch behavior).\n\nStep B — structural reorganization:\n- Move 7 JS-JIT-only files from `jit/` to `executors/jsJit/lower/`:\n  jitLower, jitLowerExpr, jitLowerStmt, jitLowerTypes, jitBailSafety,\n  blockAnalysis, scalarEmit. They were never shared with C-JIT after\n  the e1/e2 deletion.\n- Move `jit/jitTypes.ts` up to `numbl-core/jitTypes.ts` (single-file\n  dir was awkward; jitTypes is genuinely shared between interpreter\n  builtins and JS-JIT).\n- Delete executors/typeInfo.ts (pure re-exports). Callers import\n  directly from numbl-core/jitTypes or interpreter/builtins/types.\n- Rename jit/jitLoopAnalysis.ts → executors/jsJit/lower/blockAnalysis.ts;\n  LoopVarInfo type → BlockVarInfo (it analyzes both loops and\n  top-level, not just loops).\n- Split executors/jsJit/js/ into executors/jsJit/codegen/ and\n  executors/jsJit/helpers/. The split reflects the role:\n    codegen/ runs at compile time inside numbl\n    helpers/ ships into the generated JS as `$h.*`\n\nVerified: tsc clean (app + node), 1462 unit tests pass,\njit_interpreter_parity SUCCESS under --opt 0/1, chunkie helmholtz\nwithin noise.",
+          "timestamp": "2026-04-28T15:27:23-04:00",
+          "tree_id": "7dc2646c64d6530ad37402e5d116bd1d6bb11e83",
+          "url": "https://github.com/flatironinstitute/numbl/commit/c4f453ac1ba47e8861eb1f7e640b28ecab697e4b"
+        },
+        "date": 1777404794959,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "scalar_bench / elapsed / opt-1",
+            "value": 0.5112,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [0.5112, 0.5133, 0.5099]\nOS: linux 6.17.0-1011-azure (x64)\nCPU: AMD EPYC 7763 64-Core Processor (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260426.100.1"
+          },
+          {
+            "name": "complex_scalar_bench / elapsed / opt-1",
+            "value": 0.5331,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [0.5287, 0.5384, 0.5331]\nOS: linux 6.17.0-1011-azure (x64)\nCPU: AMD EPYC 7763 64-Core Processor (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260426.100.1"
+          },
+          {
+            "name": "tensor_ops_bench / Binary / opt-1",
+            "value": 0.434,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [0.4340, 0.4310, 0.4450]\nOS: linux 6.17.0-1011-azure (x64)\nCPU: AMD EPYC 7763 64-Core Processor (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260426.100.1"
+          },
+          {
+            "name": "tensor_ops_bench / Chain / opt-1",
+            "value": 0.725,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [0.7290, 0.7250, 0.7250]\nOS: linux 6.17.0-1011-azure (x64)\nCPU: AMD EPYC 7763 64-Core Processor (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260426.100.1"
+          },
+          {
+            "name": "tensor_ops_bench / CmpRed / opt-1",
+            "value": 0.319,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [0.3150, 0.3190, 0.3260]\nOS: linux 6.17.0-1011-azure (x64)\nCPU: AMD EPYC 7763 64-Core Processor (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260426.100.1"
+          },
+          {
+            "name": "tensor_ops_bench / Reduce / opt-1",
+            "value": 0.209,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [0.2090, 0.2090, 0.2100]\nOS: linux 6.17.0-1011-azure (x64)\nCPU: AMD EPYC 7763 64-Core Processor (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260426.100.1"
+          },
+          {
+            "name": "tensor_ops_bench / Unary / opt-1",
+            "value": 1.547,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [1.5450, 1.5470, 1.6030]\nOS: linux 6.17.0-1011-azure (x64)\nCPU: AMD EPYC 7763 64-Core Processor (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260426.100.1"
+          },
+          {
+            "name": "tensor_ops_bench / total / opt-1",
+            "value": 3.232,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [3.2320, 3.2310, 3.3090]\nOS: linux 6.17.0-1011-azure (x64)\nCPU: AMD EPYC 7763 64-Core Processor (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260426.100.1"
+          },
+          {
+            "name": "tensor_ops_bench2 / AccRed / opt-1",
+            "value": 0.546,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [0.5580, 0.5430, 0.5460]\nOS: linux 6.17.0-1011-azure (x64)\nCPU: AMD EPYC 7763 64-Core Processor (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260426.100.1"
+          },
+          {
+            "name": "tensor_ops_bench2 / BinOps / opt-1",
+            "value": 8.323,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [8.3240, 8.3230, 8.2700]\nOS: linux 6.17.0-1011-azure (x64)\nCPU: AMD EPYC 7763 64-Core Processor (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260426.100.1"
+          },
+          {
+            "name": "tensor_ops_bench2 / Clamp / opt-1",
+            "value": 9.321,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [9.3370, 9.3210, 9.2820]\nOS: linux 6.17.0-1011-azure (x64)\nCPU: AMD EPYC 7763 64-Core Processor (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260426.100.1"
+          },
+          {
+            "name": "tensor_ops_bench2 / Gauss / opt-1",
+            "value": 0.43,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [0.4260, 0.4300, 0.4360]\nOS: linux 6.17.0-1011-azure (x64)\nCPU: AMD EPYC 7763 64-Core Processor (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260426.100.1"
+          },
+          {
+            "name": "tensor_ops_bench2 / InlRed / opt-1",
+            "value": 0.248,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [0.2540, 0.2480, 0.2430]\nOS: linux 6.17.0-1011-azure (x64)\nCPU: AMD EPYC 7763 64-Core Processor (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260426.100.1"
+          },
+          {
+            "name": "tensor_ops_bench2 / Nested / opt-1",
+            "value": 1.117,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [1.1420, 1.1170, 1.0950]\nOS: linux 6.17.0-1011-azure (x64)\nCPU: AMD EPYC 7763 64-Core Processor (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260426.100.1"
+          },
+          {
+            "name": "tensor_ops_bench2 / total / opt-1",
+            "value": 19.983,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [20.0410, 19.9830, 19.8720]\nOS: linux 6.17.0-1011-azure (x64)\nCPU: AMD EPYC 7763 64-Core Processor (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260426.100.1"
+          },
+          {
+            "name": "complex_tensor_bench / k1_mandelbrot / opt-1",
+            "value": 0.064,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [0.0660, 0.0640, 0.0640]\nOS: linux 6.17.0-1011-azure (x64)\nCPU: AMD EPYC 7763 64-Core Processor (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260426.100.1"
+          },
+          {
+            "name": "complex_tensor_bench / k2_tensor_chain / opt-1",
+            "value": 2.011,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [1.9780, 2.0250, 2.0110]\nOS: linux 6.17.0-1011-azure (x64)\nCPU: AMD EPYC 7763 64-Core Processor (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260426.100.1"
+          },
+          {
+            "name": "complex_tensor_bench / k3_conj_chain / opt-1",
+            "value": 2.273,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [2.3360, 2.2650, 2.2730]\nOS: linux 6.17.0-1011-azure (x64)\nCPU: AMD EPYC 7763 64-Core Processor (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260426.100.1"
+          },
+          {
+            "name": "complex_tensor_bench / k4_widening / opt-1",
+            "value": 0.062,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [0.0620, 0.0620, 0.0650]\nOS: linux 6.17.0-1011-azure (x64)\nCPU: AMD EPYC 7763 64-Core Processor (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260426.100.1"
+          },
+          {
+            "name": "complex_tensor_bench / k5_divide / opt-1",
+            "value": 0.044,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [0.0440, 0.0430, 0.0450]\nOS: linux 6.17.0-1011-azure (x64)\nCPU: AMD EPYC 7763 64-Core Processor (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260426.100.1"
+          },
+          {
+            "name": "complex_tensor_bench / k6_abs_reduce / opt-1",
+            "value": 0.129,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [0.1290, 0.1290, 0.1290]\nOS: linux 6.17.0-1011-azure (x64)\nCPU: AMD EPYC 7763 64-Core Processor (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260426.100.1"
+          },
+          {
+            "name": "complex_tensor_bench / total / opt-1",
+            "value": 4.589,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [4.6140, 4.5890, 4.5870]\nOS: linux 6.17.0-1011-azure (x64)\nCPU: AMD EPYC 7763 64-Core Processor (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260426.100.1"
+          },
+          {
+            "name": "chunkie_helmholtz_starfish / build_matrix / opt-1",
+            "value": 4.420385,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [4.4544, 4.4047, 4.4204]\nOS: linux 6.17.0-1011-azure (x64)\nCPU: AMD EPYC 7763 64-Core Processor (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260426.100.1"
+          },
+          {
+            "name": "chunkie_helmholtz_starfish / discretize / opt-1",
+            "value": 0.734112,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [0.7341, 0.7471, 0.7089]\nOS: linux 6.17.0-1011-azure (x64)\nCPU: AMD EPYC 7763 64-Core Processor (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260426.100.1"
+          },
+          {
+            "name": "chunkie_helmholtz_starfish / eval / opt-1",
+            "value": 4.199805,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [4.2429, 4.1998, 4.1066]\nOS: linux 6.17.0-1011-azure (x64)\nCPU: AMD EPYC 7763 64-Core Processor (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260426.100.1"
+          },
+          {
+            "name": "chunkie_helmholtz_starfish / execution / opt-1",
+            "value": 11.369858,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [11.4439, 11.3699, 11.1841]\nOS: linux 6.17.0-1011-azure (x64)\nCPU: AMD EPYC 7763 64-Core Processor (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260426.100.1"
+          },
+          {
+            "name": "chunkie_helmholtz_starfish / interior / opt-1",
+            "value": 1.315373,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [1.3265, 1.3154, 1.2699]\nOS: linux 6.17.0-1011-azure (x64)\nCPU: AMD EPYC 7763 64-Core Processor (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260426.100.1"
+          },
+          {
+            "name": "chunkie_helmholtz_starfish / solve / opt-1",
+            "value": 0.293489,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [0.2904, 0.2935, 0.3003]\nOS: linux 6.17.0-1011-azure (x64)\nCPU: AMD EPYC 7763 64-Core Processor (4 cores)\nRAM: 16 GB\nNode: v20.20.2\ncc: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nRunner: Linux ubuntu24 20260426.100.1"
           }
         ]
       }
