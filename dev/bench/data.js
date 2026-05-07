@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1778175521484,
+  "lastUpdate": 1778179918609,
   "repoUrl": "https://github.com/flatironinstitute/numbl",
   "entries": {
     "numbl benchmarks (Linux)": [
@@ -42542,6 +42542,162 @@ window.BENCHMARK_DATA = {
             "value": 17.737,
             "unit": "s",
             "extra": "median of 3/3 runs: [23.5050, 17.7370, 17.2640]\nOS: darwin 24.6.0 (arm64)\nCPU: Apple M1 (Virtual) (3 cores)\nRAM: 7 GB\nNode: v20.20.2\ncc: Apple clang version 17.0.0 (clang-1700.0.13.5)\nRunner: macOS macos15 20260427.0018.1"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "jmagland@flatironinstitute.org",
+            "name": "Jeremy Magland",
+            "username": "magland"
+          },
+          "committer": {
+            "email": "jmagland@flatironinstitute.org",
+            "name": "Jeremy Magland",
+            "username": "magland"
+          },
+          "distinct": true,
+          "id": "2f26d72bce468d402ac7ac9e1abd13dff79d6bee",
+          "message": "refcount: enable strict mode + fix paths it revealed\n\nFlip rt.strictRefcount default on so missed increfs / double decrefs\nfail loud instead of silently masking. Fixes the bookkeeping holes\nthat surfaced as a result:\n\n- appdata: setappdata/rmappdata/resetAppdataStore now incref on store\n  and decref on replace/remove/reset. Without this, getappdata was\n  handing back wrappers whose children had already been freed by the\n  caller's clearLocals — caught by mip.is_loaded reading\n  MIP_LOADED_PACKAGES.\n- JIT __cellWrite: route through RuntimeCell.bindElement (incref-new /\n  decref-old, COW the wrapper iff shared) instead of building a POJO\n  cell and skipping refcounts.\n- JIT struct AssignMember: emit structSetField_h (which calls\n  bindField) instead of a raw fields.set.\n- JIT user-call: incref args at entry, decref in finally, mirroring\n  the interpreter so callee-side mutation through a parameter sees\n  the caller's hold and triggers COW.\n- evalLValueBase Member auto-create: use the caller's defaultVal\n  (empty tensor for `(...)`/`{...}`, empty struct for `.member`)\n  instead of always seeding an empty struct, so `s.a(3) = 5` grows a\n  tensor as MATLAB expects.\n\nTests:\n- memory/test_appdata_refcount.m — set/get round-trip after the\n  caller's local goes out of scope, key replacement, rmappdata, and\n  nested-cell stress.\n- memory/test_cow_loop_cell_struct.m — JIT-able for loops writing\n  into cell elements and struct fields.\n- indexing/test_field_auto_grow.m — `s.a(3) = 5` and friends.\n- memory/test_cow_adversarial2 #18 — un-comment the for-loop\n  variant now that JIT cell-write tracks refs.",
+          "timestamp": "2026-05-07T14:03:11-04:00",
+          "tree_id": "c0d9c9b5908e3a1d9401b405326937f6def5a8d9",
+          "url": "https://github.com/flatironinstitute/numbl/commit/2f26d72bce468d402ac7ac9e1abd13dff79d6bee"
+        },
+        "date": 1778179917854,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "scalar_bench / elapsed / opt-1",
+            "value": 0.5273,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [0.5273, 0.5282, 0.5121]\nOS: darwin 24.6.0 (arm64)\nCPU: Apple M1 (Virtual) (3 cores)\nRAM: 7 GB\nNode: v20.20.2\ncc: Apple clang version 17.0.0 (clang-1700.0.13.5)\nRunner: macOS macos15 20260427.0018.1"
+          },
+          {
+            "name": "complex_scalar_bench / elapsed / opt-1",
+            "value": 1.504,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [1.5781, 1.5040, 1.3940]\nOS: darwin 24.6.0 (arm64)\nCPU: Apple M1 (Virtual) (3 cores)\nRAM: 7 GB\nNode: v20.20.2\ncc: Apple clang version 17.0.0 (clang-1700.0.13.5)\nRunner: macOS macos15 20260427.0018.1"
+          },
+          {
+            "name": "tensor_ops_bench / Binary / opt-1",
+            "value": 22.925,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [22.9250, 23.8390, 19.8840]\nOS: darwin 24.6.0 (arm64)\nCPU: Apple M1 (Virtual) (3 cores)\nRAM: 7 GB\nNode: v20.20.2\ncc: Apple clang version 17.0.0 (clang-1700.0.13.5)\nRunner: macOS macos15 20260427.0018.1"
+          },
+          {
+            "name": "tensor_ops_bench / Chain / opt-1",
+            "value": 19.26,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [20.4180, 13.3500, 19.2600]\nOS: darwin 24.6.0 (arm64)\nCPU: Apple M1 (Virtual) (3 cores)\nRAM: 7 GB\nNode: v20.20.2\ncc: Apple clang version 17.0.0 (clang-1700.0.13.5)\nRunner: macOS macos15 20260427.0018.1"
+          },
+          {
+            "name": "tensor_ops_bench / CmpRed / opt-1",
+            "value": 4.851,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [5.0680, 4.8510, 4.7910]\nOS: darwin 24.6.0 (arm64)\nCPU: Apple M1 (Virtual) (3 cores)\nRAM: 7 GB\nNode: v20.20.2\ncc: Apple clang version 17.0.0 (clang-1700.0.13.5)\nRunner: macOS macos15 20260427.0018.1"
+          },
+          {
+            "name": "tensor_ops_bench / Reduce / opt-1",
+            "value": 0.373,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [0.4550, 0.3730, 0.2280]\nOS: darwin 24.6.0 (arm64)\nCPU: Apple M1 (Virtual) (3 cores)\nRAM: 7 GB\nNode: v20.20.2\ncc: Apple clang version 17.0.0 (clang-1700.0.13.5)\nRunner: macOS macos15 20260427.0018.1"
+          },
+          {
+            "name": "tensor_ops_bench / Unary / opt-1",
+            "value": 53.76,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [55.5740, 53.7600, 43.9560]\nOS: darwin 24.6.0 (arm64)\nCPU: Apple M1 (Virtual) (3 cores)\nRAM: 7 GB\nNode: v20.20.2\ncc: Apple clang version 17.0.0 (clang-1700.0.13.5)\nRunner: macOS macos15 20260427.0018.1"
+          },
+          {
+            "name": "tensor_ops_bench / total / opt-1",
+            "value": 96.174,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [104.4390, 96.1740, 88.1190]\nOS: darwin 24.6.0 (arm64)\nCPU: Apple M1 (Virtual) (3 cores)\nRAM: 7 GB\nNode: v20.20.2\ncc: Apple clang version 17.0.0 (clang-1700.0.13.5)\nRunner: macOS macos15 20260427.0018.1"
+          },
+          {
+            "name": "tensor_ops_bench2 / AccRed / opt-1",
+            "value": 9.967,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [10.8590, 9.0250, 9.9670]\nOS: darwin 24.6.0 (arm64)\nCPU: Apple M1 (Virtual) (3 cores)\nRAM: 7 GB\nNode: v20.20.2\ncc: Apple clang version 17.0.0 (clang-1700.0.13.5)\nRunner: macOS macos15 20260427.0018.1"
+          },
+          {
+            "name": "tensor_ops_bench2 / BinOps / opt-1",
+            "value": 19.222,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [17.4240, 19.4240, 19.2220]\nOS: darwin 24.6.0 (arm64)\nCPU: Apple M1 (Virtual) (3 cores)\nRAM: 7 GB\nNode: v20.20.2\ncc: Apple clang version 17.0.0 (clang-1700.0.13.5)\nRunner: macOS macos15 20260427.0018.1"
+          },
+          {
+            "name": "tensor_ops_bench2 / Clamp / opt-1",
+            "value": 18.765,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [17.4320, 18.7650, 23.0190]\nOS: darwin 24.6.0 (arm64)\nCPU: Apple M1 (Virtual) (3 cores)\nRAM: 7 GB\nNode: v20.20.2\ncc: Apple clang version 17.0.0 (clang-1700.0.13.5)\nRunner: macOS macos15 20260427.0018.1"
+          },
+          {
+            "name": "tensor_ops_bench2 / Gauss / opt-1",
+            "value": 3.617,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [3.6170, 3.0420, 3.7460]\nOS: darwin 24.6.0 (arm64)\nCPU: Apple M1 (Virtual) (3 cores)\nRAM: 7 GB\nNode: v20.20.2\ncc: Apple clang version 17.0.0 (clang-1700.0.13.5)\nRunner: macOS macos15 20260427.0018.1"
+          },
+          {
+            "name": "tensor_ops_bench2 / InlRed / opt-1",
+            "value": 6.998,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [6.9980, 5.3430, 7.0690]\nOS: darwin 24.6.0 (arm64)\nCPU: Apple M1 (Virtual) (3 cores)\nRAM: 7 GB\nNode: v20.20.2\ncc: Apple clang version 17.0.0 (clang-1700.0.13.5)\nRunner: macOS macos15 20260427.0018.1"
+          },
+          {
+            "name": "tensor_ops_bench2 / Nested / opt-1",
+            "value": 36.701,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [36.7010, 35.6950, 40.6440]\nOS: darwin 24.6.0 (arm64)\nCPU: Apple M1 (Virtual) (3 cores)\nRAM: 7 GB\nNode: v20.20.2\ncc: Apple clang version 17.0.0 (clang-1700.0.13.5)\nRunner: macOS macos15 20260427.0018.1"
+          },
+          {
+            "name": "tensor_ops_bench2 / total / opt-1",
+            "value": 93.031,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [93.0310, 91.2930, 103.6660]\nOS: darwin 24.6.0 (arm64)\nCPU: Apple M1 (Virtual) (3 cores)\nRAM: 7 GB\nNode: v20.20.2\ncc: Apple clang version 17.0.0 (clang-1700.0.13.5)\nRunner: macOS macos15 20260427.0018.1"
+          },
+          {
+            "name": "complex_tensor_bench / k1_mandelbrot / opt-1",
+            "value": 1.702,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [1.3060, 1.9740, 1.7020]\nOS: darwin 24.6.0 (arm64)\nCPU: Apple M1 (Virtual) (3 cores)\nRAM: 7 GB\nNode: v20.20.2\ncc: Apple clang version 17.0.0 (clang-1700.0.13.5)\nRunner: macOS macos15 20260427.0018.1"
+          },
+          {
+            "name": "complex_tensor_bench / k2_tensor_chain / opt-1",
+            "value": 1.601,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [0.9300, 1.9940, 1.6010]\nOS: darwin 24.6.0 (arm64)\nCPU: Apple M1 (Virtual) (3 cores)\nRAM: 7 GB\nNode: v20.20.2\ncc: Apple clang version 17.0.0 (clang-1700.0.13.5)\nRunner: macOS macos15 20260427.0018.1"
+          },
+          {
+            "name": "complex_tensor_bench / k3_conj_chain / opt-1",
+            "value": 1.55,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [0.8270, 1.5500, 7.7760]\nOS: darwin 24.6.0 (arm64)\nCPU: Apple M1 (Virtual) (3 cores)\nRAM: 7 GB\nNode: v20.20.2\ncc: Apple clang version 17.0.0 (clang-1700.0.13.5)\nRunner: macOS macos15 20260427.0018.1"
+          },
+          {
+            "name": "complex_tensor_bench / k4_widening / opt-1",
+            "value": 10.715,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [12.1100, 10.7150, 4.6280]\nOS: darwin 24.6.0 (arm64)\nCPU: Apple M1 (Virtual) (3 cores)\nRAM: 7 GB\nNode: v20.20.2\ncc: Apple clang version 17.0.0 (clang-1700.0.13.5)\nRunner: macOS macos15 20260427.0018.1"
+          },
+          {
+            "name": "complex_tensor_bench / k5_divide / opt-1",
+            "value": 2.34,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [1.9540, 3.0730, 2.3400]\nOS: darwin 24.6.0 (arm64)\nCPU: Apple M1 (Virtual) (3 cores)\nRAM: 7 GB\nNode: v20.20.2\ncc: Apple clang version 17.0.0 (clang-1700.0.13.5)\nRunner: macOS macos15 20260427.0018.1"
+          },
+          {
+            "name": "complex_tensor_bench / k6_abs_reduce / opt-1",
+            "value": 4.491,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [4.4910, 5.3570, 3.6840]\nOS: darwin 24.6.0 (arm64)\nCPU: Apple M1 (Virtual) (3 cores)\nRAM: 7 GB\nNode: v20.20.2\ncc: Apple clang version 17.0.0 (clang-1700.0.13.5)\nRunner: macOS macos15 20260427.0018.1"
+          },
+          {
+            "name": "complex_tensor_bench / total / opt-1",
+            "value": 21.731,
+            "unit": "s",
+            "extra": "median of 3/3 runs: [21.6180, 24.6630, 21.7310]\nOS: darwin 24.6.0 (arm64)\nCPU: Apple M1 (Virtual) (3 cores)\nRAM: 7 GB\nNode: v20.20.2\ncc: Apple clang version 17.0.0 (clang-1700.0.13.5)\nRunner: macOS macos15 20260427.0018.1"
           }
         ]
       }
